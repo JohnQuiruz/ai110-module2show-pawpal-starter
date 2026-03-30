@@ -31,8 +31,17 @@ classDiagram
         +build_plan(owner, tasks) DailySchedule
     }
 
+    class ClaudeAI {
+        +reason(owner, task) start_time, reason
+    }
+
     Owner "1" --> "1" Pet : owns
     Owner "1" --> "many" CareTask : submits
-    Scheduler --> DailySchedule : returns
+    Owner ..> Scheduler : passed into
+    CareTask ..> Scheduler : passed into
+    Scheduler ..> ClaudeAI : asks for reasoning
+    ClaudeAI ..> ScheduledTask : provides start_time + reason
+    Scheduler --> ScheduledTask : creates
+    Scheduler --> DailySchedule : packages and returns
     DailySchedule "1" *-- "many" ScheduledTask : contains
     ScheduledTask "1" --> "1" CareTask : wraps
