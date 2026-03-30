@@ -10,6 +10,7 @@ class Pet:
     tasks: list = field(default_factory=list)
 
     def add_task(self, task) -> None:
+        """Append a CareTask to this pet's task list."""
         self.tasks.append(task)
 
 
@@ -28,6 +29,7 @@ class CareTask:
     status: str = "pending"
 
     def mark_complete(self) -> None:
+        """Mark this task as complete by setting its status to 'complete'."""
         self.status = "complete"
 
 
@@ -45,6 +47,7 @@ class DailySchedule:
     warnings: list[str] = field(default_factory=list)
 
     def explain(self) -> str:
+        """Return a formatted string summarizing the daily care schedule."""
         lines = ["Daily Care Schedule", "=" * 20]
         for st in self.tasks:
             lines.append(f"{st.start_time} — {st.task.title} ({st.task.duration_minutes} mins, {st.task.priority} priority)")
@@ -61,6 +64,7 @@ class DailySchedule:
 class ClaudeAI:
 
     def reason(self, owner: Owner, tasks: list[CareTask]) -> list[dict]:
+        """Use Claude to assign start times and reasons to each care task."""
         client = anthropic.Anthropic()
 
         task_list = "\n".join(
@@ -100,6 +104,7 @@ class Scheduler:
     ai: ClaudeAI
 
     def build_plan(self, owner: Owner, task_dicts: list[dict]) -> DailySchedule:
+        """Build a DailySchedule by filtering tasks and delegating scheduling to the AI."""
         available_minutes = owner.preferences.get("available_minutes", 0)
         max_task_duration = owner.preferences.get("max_task_duration", float("inf"))
 
