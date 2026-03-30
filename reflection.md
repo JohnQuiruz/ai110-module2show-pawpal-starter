@@ -66,7 +66,12 @@ As stated above, I changed the parameters for the Scheduler from "(owner, tasks,
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+
+It considers schedule constraints such as the wake time, notes about pet (ex. my pet hasn't been feeling well), overall minutes for pet care, strict max duration per task
+
 - How did you decide which constraints mattered most?
+
+The main issue was with the app's original state. As is, it doesn't fit each task in a real time slot, or doesn't intelligently order them. So I got the idea of adding an inference layer to have a model do that for me.
 
 **b. Tradeoffs**
 
@@ -81,7 +86,7 @@ As stated above, I changed the parameters for the Scheduler from "(owner, tasks,
 
 - How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
 
-Used Claude for brainstorming. It suggested a good class diagram accompanied with mermaid script. It also helped me figure out what constraints could be made to make this an interesting app. Claude also emphasized that the app needed a Claude API call to generate reasoning whenever the user clicks the generate schedule button.
+Used Claude for brainstorming. It suggested a good class diagram accompanied with mermaid script. It also helped me figure out what constraints could be made to make this an interesting app. Claude also emphasized that the app needed a Claude API call to generate reasoning whenever the user clicks the generate schedule button. Also used Claude to help me connect the anthropic API and how to use it. 
 
 - What kinds of prompts or questions were most helpful?
 
@@ -92,7 +97,13 @@ Used Claude for brainstorming. It suggested a good class diagram accompanied wit
 **b. Judgment and verification**
 
 - Describe one moment where you did not accept an AI suggestion as-is.
+
+So the model had trouble understanding how the form information from the frontend was going to be passed to the backend. It did not consider how the frontend constructed a list of dictionaries, rather it assumed that we would get every field as a single data type, strings.
+Also, the model was going to call the api once per task which is problematic because in order to generate a useful schedule, we need to know how all of the tasks relate to each other. For example, if feeding my pet is a high priority but also calling the vet because my pet has been lethargic all week, it would not know to schedule the vet call first because each task is analyzed separately by the API call.
+
 - How did you evaluate or verify what the AI suggested?
+
+Reading the code, and asking Claude to examine further why its making a mistake at specific lines or blocks.
 
 ---
 
