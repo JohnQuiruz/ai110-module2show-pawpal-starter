@@ -51,7 +51,9 @@ class DailySchedule:
         lines = ["Daily Care Schedule", "=" * 20]
         for st in self.tasks:
             lines.append(f"{st.start_time} — {st.task.title} ({st.task.duration_minutes} mins, {st.task.priority} priority)")
+            lines.append("")
             lines.append(f"  Reason: {st.reason}")
+            lines.append("")
         used = sum(st.task.duration_minutes for st in self.tasks)
         lines.append(f"\n⏱ Total: {used} min used of {self.available_minutes} available")
         if self.warnings:
@@ -88,9 +90,8 @@ Respond with only a JSON array where each object has this exact format:
 {{"title": "<task title>", "start_time": "<time like 8:00 AM>", "reason": "<explanation>"}}"""
 
         response = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-haiku-4-5",
             max_tokens=4096,
-            thinking={"type": "adaptive"},
             messages=[{"role": "user", "content": prompt}]
         )
 

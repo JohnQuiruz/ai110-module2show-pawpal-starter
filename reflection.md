@@ -76,7 +76,12 @@ The main issue was with the app's original state. As is, it doesn't fit each tas
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+
+The trade off is consuming tokens using your anthropic token. Also the API call kind of takes awhile to retrieve a response. The formatting is not optimal because I ran out of time.
+
 - Why is that tradeoff reasonable for this scenario?
+
+Because it's a pretty simple toy application and we won't perform many queries.
 
 ---
 
@@ -112,12 +117,22 @@ Reading the code, and asking Claude to examine further why its making a mistake 
 **a. What you tested**
 
 - What behaviors did you test?
+
+Tested to see if the JSON response was correctly formatted in which case is was not. Had to prompt claude to fix it and it used a filter to get rid of markdown code that was appended to the response.
+
 - Why were these tests important?
+
+The app breaks if the formatting isn't correct.
 
 **b. Confidence**
 
 - How confident are you that your scheduler works correctly?
+
+It works really well!
+
 - What edge cases would you test next if you had more time?
+
+Edge case is that if you add enough tasks that exceeds the available time that the owner has, the application will not add it to the generated schedule. Ideally, I'd want to implement an exceeding error on the front end to make sure the owner inputs the correct time within the constraints set by "time available".
 
 ---
 
@@ -127,10 +142,16 @@ Reading the code, and asking Claude to examine further why its making a mistake 
 
 - What part of this project are you most satisfied with?
 
+I'm pretty satisfied with how the end product turned out. Adding an inference layer really opened my eyes to AI is allowing creative and new application experiences.
+
 **b. What you would improve**
 
 - If you had another iteration, what would you improve or redesign?
 
+I would improve on error handling, rendering better outputs with better visuals, and play with streamlits state feature better (actually add tasks to state).
+
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+
+I learned that the combination between systems understanding, AI, and a thorough planning stage, will help you create a pretty solid application at a pretty fast rate.
