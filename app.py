@@ -89,23 +89,14 @@ st.subheader("Build Schedule")
 st.caption("This button should call your scheduling logic once you implement it.")
 
 if st.button("Generate schedule"):
-    st.warning(
-        "Not implemented yet. Next step: create your scheduling logic (classes/functions) and call it here."
-    )
-    st.markdown(
-        """
-Suggested approach:
-1. Design your UML (draft).
-2. Create class stubs (no logic).
-3. Implement scheduling behavior.
-4. Connect your scheduler here and display results.
-"""
-    )
-
     pet = Pet(pet_name, species, st.session_state.tasks)
     owner = Owner(owner_name, pet, preferences)
-
     scheduler = Scheduler(ai=ClaudeAI())
 
-    daily_schedule = scheduler.build_plan(owner, pet.tasks)
+    # add a loading state while the schedule is being built
+    with st.status("Building your pet care schedule...", expanded=True) as status:
+        st.write(f"Setting up care plan for {pet_name}...")
+        daily_schedule = scheduler.build_plan(owner, pet.tasks)
+        status.update(label="Schedule ready!", state="complete", expanded=False)
+
     st.write(daily_schedule.explain())
