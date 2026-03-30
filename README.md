@@ -1,5 +1,12 @@
 # PawPal+ (Module 2 Project)
 
+
+IMPORTANT: In order for my app to work:
+    - Create a .env file in the root folder
+    - Add the line ```ANTHROPIC_API_KEY=<your personal anthropic api key>```
+    - Proceed to prepare the app as normal and run it
+
+
 You are building **PawPal+**, a Streamlit app that helps a pet owner plan care tasks for their pet.
 
 ## Scenario
