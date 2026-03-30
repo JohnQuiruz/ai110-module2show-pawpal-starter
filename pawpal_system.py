@@ -7,6 +7,10 @@ from dataclasses import dataclass, field
 class Pet:
     name: str
     species: str
+    tasks: list = field(default_factory=list)
+
+    def add_task(self, task) -> None:
+        self.tasks.append(task)
 
 
 @dataclass
@@ -21,6 +25,10 @@ class CareTask:
     title: str
     duration_minutes: int
     priority: str
+    status: str = "pending"
+
+    def mark_complete(self) -> None:
+        self.status = "complete"
 
 
 @dataclass
