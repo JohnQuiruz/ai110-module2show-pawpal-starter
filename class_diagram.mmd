@@ -28,7 +28,7 @@ classDiagram
     }
 
     class Scheduler {
-        +build_plan(owner, tasks, available_minutes) DailySchedule
+        +build_plan(owner, tasks) DailySchedule
     }
 
     Owner "1" --> "1" Pet : owns
