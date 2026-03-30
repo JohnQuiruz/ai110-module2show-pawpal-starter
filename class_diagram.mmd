@@ -1,0 +1,38 @@
+classDiagram
+    class Owner {
+        +str name
+        +Pet pet
+        +dict preferences
+    }
+
+    class Pet {
+        +str name
+        +str species
+    }
+
+    class CareTask {
+        +str title
+        +int duration_minutes
+        +str priority
+    }
+
+    class ScheduledTask {
+        +CareTask task
+        +str start_time
+        +str reason
+    }
+
+    class DailySchedule {
+        +list~ScheduledTask~ tasks
+        +explain() str
+    }
+
+    class Scheduler {
+        +build_plan(owner, tasks, available_minutes) DailySchedule
+    }
+
+    Owner "1" --> "1" Pet : owns
+    Owner "1" --> "many" CareTask : submits
+    Scheduler --> DailySchedule : returns
+    DailySchedule "1" *-- "many" ScheduledTask : contains
+    ScheduledTask "1" --> "1" CareTask : wraps
